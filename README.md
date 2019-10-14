@@ -1,2 +1,3 @@
 # lzfse-js
-WASM version of lzfse.
+
+> WASM version of lzfse.
