@@ -9,6 +9,8 @@ GIT_DESCRIBE=$(git describe --tags)
 
 EMSDK=$(shell http https://raw.githubusercontent.com/emscripten-core/emsdk/master/emscripten-releases-tags.txt | jq '.latest')
 
+CC=/usr/local/opt/emscripten/libexec/llvm/bin/clang
+
 .PHONY: docker
 docker:
 	docker build --build-arg=EMSCRIPTEN_VERSION=$(EMSDK) -t emscripten/emscripten ./docker
@@ -25,13 +27,17 @@ docker-install:
 .PHONY: build
 build: clean
 	@echo " > Building"
-	@emcc helloworld.cpp -s WASM=1 -s BINARYEN=0 -O2 -o public/helloworld.js
+	@cd vendor/lzfse; emmake make install INSTALL_PREFIX=/tmp/lzfse.dst/usr/local
+	@mv vendor/lzfse/build/bin/lzfse vendor/lzfse/build/bin/lzfse.bc
+	@emcc vendor/lzfse/build/bin/lzfse.bc -s WASM=1 -s BINARYEN=0 -s TOTAL_MEMORY=1GB -s ASSERTIONS=1 -s EXPORTED_FUNCTIONS="['_lzfse_decode_buffer']" -o public/lzfse.js
+	# @emcc vendor/lzfse/build/bin/lzfse.bc -s WASM=1 -s BINARYEN=0 -s TOTAL_MEMORY=1GB -s ASSERTIONS=1 -O2 -o public/lzfse.js
 	@ls -lah public
 
 .PHONY: run
 run: build
 	@echo " > Running"
-	@node public/helloworld.js
+	@node public/lzfse.js -decode -i data.bin -o kernelcache.release.iphone12.decompressed
+	@file kernelcache.release.iphone12.decompressed
 
 .PHONY: bump
 bump: ## Incriment version patch number
@@ -56,7 +62,7 @@ destroy: ## Remove release from the VERSION
 .PHONY: clean
 clean: ## Clean the artifacts
 	@echo " > Cleaning"
-	@rm public/*
+	@rm public/* || true
 
 # Absolutely awesome: http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 help:

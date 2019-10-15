@@ -1,0 +1,25 @@
+{
+  "name": "lzfse",
+  "version": "1.0.0",
+  "description": "This is a reference Javascript implementation of the LZFSE compressor introduced in the Compression library with OS X 10.11 and iOS 9.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blacktop/lzfse-js.git"
+  },
+  "keywords": [
+    "lzfse"
+  ],
+  "author": "Blacktop <https://github.com/blacktop>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/blacktop/lzfse-js/issues"
+  },
+  "homepage": "https://github.com/blacktop/lzfse-js#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
