@@ -1,10 +1,10 @@
 {
   "name": "lzfse",
   "version": "1.0.0",
-  "description": "This is a reference Javascript implementation of the LZFSE compressor introduced in the Compression library with OS X 10.11 and iOS 9.",
+  "description": "This is a WASM Javascript implementation of the LZFSE compressor introduced in the Compression library with macOS 10.11 and iOS 9.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "open http://localhost:2222 && node server.js"
   },
   "repository": {
     "type": "git",
