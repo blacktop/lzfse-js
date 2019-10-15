@@ -1,3 +1,3 @@
-# lzfse-js
+# 🚧 lzfse-js 🚧
 
 > WASM version of lzfse.
