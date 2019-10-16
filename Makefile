@@ -29,7 +29,7 @@ build: clean
 	@echo " > Building"
 	@cd vendor/lzfse; emmake make install INSTALL_PREFIX=/tmp/lzfse.dst/usr/local
 	@mv vendor/lzfse/build/bin/lzfse vendor/lzfse/build/bin/lzfse.bc
-	@emcc vendor/lzfse/build/bin/lzfse.bc -s WASM=1 -s BINARYEN=0 -s TOTAL_MEMORY=1GB -s ASSERTIONS=1 -s EXPORTED_FUNCTIONS="['_lzfse_decode_buffer']" -o public/lzfse.js
+	@emcc vendor/lzfse/build/bin/lzfse.bc -s WASM=1 -s BINARYEN=0 -s TOTAL_MEMORY=1GB -s ASSERTIONS=1 -s EXPORTED_FUNCTIONS="['_lzfse_decode_buffer']" -s EXTRA_EXPORTED_RUNTIME_METHODS="['cwrap']" -o public/lzfse.js
 	# @emcc vendor/lzfse/build/bin/lzfse.bc -s WASM=1 -s BINARYEN=0 -s TOTAL_MEMORY=1GB -s ASSERTIONS=1 -O2 -o public/lzfse.js
 	@ls -lah public
 
