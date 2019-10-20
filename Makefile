@@ -13,7 +13,7 @@ CC=/usr/local/opt/emscripten/libexec/llvm/bin/clang
 
 .PHONY: docker
 docker:
-	docker build --build-arg=EMSCRIPTEN_VERSION=$(EMSDK) -t emscripten/emscripten ./docker
+	docker build --build-arg=EMSCRIPTEN_VERSION=$(EMSDK) -t emscripten/emscripten ./hack/docker
 
 .PHONY: docker-install
 docker-install:
