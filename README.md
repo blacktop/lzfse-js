@@ -20,6 +20,7 @@ $ npm install lzfse.js
 ```js
 var fs = require('fs');
 var asn = require('asn1.js');
+var lzfse = require('lzfse.js');
 
 var Img4 = asn.define('Img4', function() {
   this.seq().obj(
@@ -31,10 +32,10 @@ var Img4 = asn.define('Img4', function() {
 });
 
 var contents = fs.readFileSync('kernelcache', 'utf8');
+
 var img4 = Img4.decode(contents, 'der');
 console.log(img4.Version);
 
-var lzfse = require('lzfse.js');
 decoded_data = lzfse.decode_buffer(img4.Data)
 
 fs.writeFile('kernelcache.decompressed', decoded_data, 'utf8', function (err) {
