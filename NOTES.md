@@ -17,6 +17,7 @@
 - <https://hackr.io/tutorials/learn-webassembly?sort=upvotes&languages%5B%5D=en>
 - <https://webassemblyjobs.com/learn-webassembly>
 - <https://egghead.io/courses/get-started-using-webassembly-wasm>
+- <https://medium.com/@robaboukhalil/hit-the-ground-running-with-webassembly-56cf9b2fa35d>
 - <https://medium.com/@robaboukhalil/porting-games-to-the-web-with-webassembly-70d598e1a3ec>
 - <https://github.com/guybedford/wasm-stdlib-hack>
 - <https://webassembly.studio/>
