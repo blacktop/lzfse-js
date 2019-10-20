@@ -23,9 +23,9 @@ var asn = require('asn1.js');
 
 var Img4 = asn.define('Img4', function() {
   this.seq().obj(
-    this.key('IM4P').octstr(),
-    this.key('Name').octstr(),
-    this.key('Version').octstr(),
+    this.key('IM4P').ia5str(),
+    this.key('Name').ia5str(),
+    this.key('Version').ia5str(),
     this.key('Data').octstr()
   );
 });
