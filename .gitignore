@@ -65,3 +65,4 @@ typings/
 *.zip
 data.bin
 kernelcache.*
+kern.dec

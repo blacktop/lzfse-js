@@ -22,15 +22,26 @@ docker-install:
 	-v `pwd`:`pwd` \
 	-u `id -u`:`id -g` \
 	emscripten/emscripten \
-	emcc helloworld.cpp -o helloworld.js
+	emcc $(PWD)/hello.c -s STANDALONE_WASM
 
 .PHONY: build
 build: clean
 	@echo " > Building"
-	@cd vendor/lzfse; emmake make install INSTALL_PREFIX=/tmp/lzfse.dst/usr/local
+	@cd vendor/lzfse; docker run \
+	--rm \
+	-v `pwd`:`pwd` \
+	-u `id -u`:`id -g` \
+	--workdir `pwd` \
+	emscripten/emscripten \
+	emmake make install INSTALL_PREFIX=/tmp/lzfse.dst/usr/local
 	@mv vendor/lzfse/build/bin/lzfse vendor/lzfse/build/bin/lzfse.bc
-	@emcc vendor/lzfse/build/bin/lzfse.bc -s WASM=1 -s BINARYEN=0 -s TOTAL_MEMORY=1GB -s ASSERTIONS=1 -s EXPORTED_FUNCTIONS="['_lzfse_decode_buffer']" -s EXTRA_EXPORTED_RUNTIME_METHODS="['cwrap']" -o public/lzfse.js
-	# @emcc vendor/lzfse/build/bin/lzfse.bc -s WASM=1 -s BINARYEN=0 -s TOTAL_MEMORY=1GB -s ASSERTIONS=1 -O2 -o public/lzfse.js
+	@docker run \
+	--rm \
+	-v `pwd`:`pwd` \
+	-u `id -u`:`id -g` \
+	--workdir `pwd` \
+	emscripten/emscripten \
+	emcc $(PWD)/vendor/lzfse/build/bin/lzfse.bc -s FORCE_FILESYSTEM=1 -s EXIT_RUNTIME=1 -s ALLOW_MEMORY_GROWTH=1 -s TOTAL_MEMORY=1GB -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s NODERAWFS=1 -o $(PWD)/public/lzfse.js
 	@ls -lah public
 
 .PHONY: run

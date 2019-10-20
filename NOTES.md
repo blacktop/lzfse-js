@@ -6,3 +6,7 @@
 ## `cli`
 
 - <https://github.com/tj/commander.js>
+
+## `docker`
+
+- <https://github.com/trzecieu/emscripten-docker>
