@@ -1,5 +1,5 @@
 {
-  "name": "lzfse",
+  "name": "lzfse.js",
   "version": "1.0.0",
   "description": "This is a WASM Javascript implementation of the LZFSE compressor introduced in the Compression library with macOS 10.11 and iOS 9.",
   "main": "server.js",
