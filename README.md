@@ -31,14 +31,14 @@ var Img4 = asn.define('Img4', function() {
   );
 });
 
-var contents = fs.readFileSync('kernelcache', 'utf8');
+var contents = fs.readFileSync('kernelcache');
 
 var img4 = Img4.decode(contents, 'der');
 console.log(img4.Version);
 
 decoded_data = lzfse.decode_buffer(img4.Data)
 
-fs.writeFile('kernelcache.decompressed', decoded_data, 'utf8', function (err) {
+fs.writeFile('kernelcache.decompressed', decoded_data, function (err) {
     if (err) {
         return console.log(err);
     }

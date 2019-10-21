@@ -8,7 +8,7 @@ const asn = require('asn1.js');
 const path = require('path')
 const testFile = path.join(__dirname, '../public/test/encoded.txt')
 
-// const lz = require('../public/lzfse')
+const lzfse = require('../public/lzfse')
 
 const log = console.log;
 
@@ -21,22 +21,22 @@ if (!tf) {
     log(error(`TEST FILE ${testFile} doesn't exist.`))
 }
 
-// lz.Module = {
-//     noInitialRun: true,
-//     onRuntimeInitialized: () => {
-//         fileContents = FS.readFile("../public/test/encoded.txt", { encoding: "utf8" });
-//         console.log("File contents:");
-//         console.log(fileContents);
-//         console.log("Number of lines:", fileContents.split("\n").length);
-//     }
-// };
+lzfse.Module = {
+    noInitialRun: true,
+    onRuntimeInitialized: () => {
+        fileContents = FS.readFile("../public/test/encoded.txt", { encoding: "utf8" });
+        console.log("File contents:");
+        console.log(fileContents);
+        console.log("Number of lines:", fileContents.split("\n").length);
+    }
+};
 
 let Img4 = asn.define('Img4', function () {
     this.seq().obj(
         this.key('IM4P').ia5str(),
         this.key('Name').ia5str(),
         this.key('Version').ia5str(),
-        // this.key('Data').octstr()
+        this.key('Data').octstr()
     );
 });
 
@@ -45,11 +45,10 @@ fs.readFile('kernelcache.release.iphone12', function read(err, contents) {
         throw err;
     }
     let img4 = Img4.decode(contents, 'der');
-    console.log(img4);
+    console.log(img4.Version);
 });
 
 // const contents = fs.readFile('kernelcache.release.iphone12', 'utf8');
-
 
 // let lzfse_decode_buffer;
 
